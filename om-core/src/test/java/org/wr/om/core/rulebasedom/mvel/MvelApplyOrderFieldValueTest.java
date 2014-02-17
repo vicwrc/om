@@ -18,7 +18,7 @@ public class MvelApplyOrderFieldValueTest {
         order.setAmount(100);
         order.setProductName("Product");
         instance.setProduct("testProduct");
-        order.setPricePerItem("123");
+        order.setPricePerItem(123);
     }
 
     @Test

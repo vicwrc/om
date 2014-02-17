@@ -4,7 +4,7 @@ public class TestOrder {
 
     private String productName;
     private Integer amount;
-    private String pricePerItem;
+    private Integer pricePerItem;
 
     public String getProductName() {
         return productName;
@@ -22,11 +22,11 @@ public class TestOrder {
         this.amount = amount;
     }
 
-    public String getPricePerItem() {
+    public Integer getPricePerItem() {
         return pricePerItem;
     }
 
-    public void setPricePerItem(String pricePerItem) {
+    public void setPricePerItem(Integer pricePerItem) {
         this.pricePerItem = pricePerItem;
     }
 

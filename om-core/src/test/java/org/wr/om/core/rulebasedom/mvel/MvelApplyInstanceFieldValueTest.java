@@ -16,7 +16,7 @@ public class MvelApplyInstanceFieldValueTest {
     public void setUp() throws Exception {
         order.setAmount(100);
         order.setProductName("Product");
-        order.setPricePerItem("123");
+        order.setPricePerItem(123);
     }
 
     @Test
