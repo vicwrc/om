@@ -6,11 +6,11 @@ import org.junit.Test;
 import org.wr.om.core.rulebasedom.TestInstance;
 import org.wr.om.core.rulebasedom.TestOrder;
 
-public class MvelActionTest {
+public class MvelApplyInstanceFieldValueTest {
 
     private TestOrder order = new TestOrder();
     private TestInstance instance = new TestInstance();
-    private MvelAction action = new MvelAction();
+    private MvelApplyInstanceFieldValue action = new MvelApplyInstanceFieldValue();
 
     @Before
     public void setUp() throws Exception {
@@ -21,7 +21,8 @@ public class MvelActionTest {
 
     @Test
     public void testIsApplicable_TrueResult() throws Exception {
-        action.setExpression(" instance.product = order.productName; ");
+        action.setExpression(" order.productName; ");
+        action.setFieldName("product");
         action.execute(order, instance);
         Assert.assertEquals(order.getProductName(), instance.getProduct());
     }

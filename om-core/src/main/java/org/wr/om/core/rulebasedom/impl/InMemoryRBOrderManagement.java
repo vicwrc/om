@@ -1,5 +1,7 @@
 package org.wr.om.core.rulebasedom.impl;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.wr.om.core.PublicCloneable;
 import org.wr.om.core.rulebasedom.OMRule;
 import org.wr.om.core.rulebasedom.RuleBasedOrderManagement;
@@ -10,6 +12,8 @@ import java.util.List;
 
 
 public class InMemoryRBOrderManagement<O, I extends PublicCloneable> implements RuleBasedOrderManagement<O, I> {
+
+    private static final Log LOG = LogFactory.getLog(InMemoryRBOrderManagement.class);
 
     private List<OMRule> rules = new LinkedList<OMRule>();
 
@@ -56,8 +60,12 @@ public class InMemoryRBOrderManagement<O, I extends PublicCloneable> implements 
         for( OMRule rule : rules) {
             I ruleInstance = (I)curInstance.clone();
 
-            if(rule.execute(order, ruleInstance)) {
-                return ruleInstance;
+            try{
+                if(rule.execute(order, ruleInstance)) {
+                    return ruleInstance;
+                }
+            } catch (Exception e) {
+                LOG.error(e.getMessage(), e);
             }
         }
         return null;

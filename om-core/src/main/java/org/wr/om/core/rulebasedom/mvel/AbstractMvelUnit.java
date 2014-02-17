@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class AbstractMvelUnit<O, I> {
 
-    private String expression;
-    private Serializable compiled;
+    protected String expression;
+    protected Serializable compiled;
 
     protected Map prepareVars(O order, I instance) {
 
