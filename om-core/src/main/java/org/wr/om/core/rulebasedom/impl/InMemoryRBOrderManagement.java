@@ -70,4 +70,8 @@ public class InMemoryRBOrderManagement<O, I extends PublicCloneable> implements 
         }
         return null;
     }
+
+    public void setRules(List<OMRule> rules) {
+        this.rules = rules;
+    }
 }
