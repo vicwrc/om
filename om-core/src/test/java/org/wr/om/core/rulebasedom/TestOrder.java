@@ -5,6 +5,7 @@ public class TestOrder {
     private String productName;
     private Integer amount;
     private Integer pricePerItem;
+    private String action = "New";
 
     public String getProductName() {
         return productName;
@@ -30,12 +31,21 @@ public class TestOrder {
         this.pricePerItem = pricePerItem;
     }
 
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
     @Override
     public String toString() {
         return "TestOrder{" +
                 "productName='" + productName + '\'' +
                 ", amount=" + amount +
-                ", pricePerItem='" + pricePerItem + '\'' +
+                ", pricePerItem=" + pricePerItem +
+                ", action='" + action + '\'' +
                 '}';
     }
 }

@@ -1,0 +1,45 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+
+    <context:annotation-config/>
+
+    <bean id="rbOrderManagement"
+          class="org.wr.om.core.rulebasedom.impl.InMemoryRBOrderManagement">
+        <property name="rules">
+            <list>
+                <!-- New to pending transition -->
+                <bean class="org.wr.om.core.rulebasedom.OMRule">
+                    <property name="condition">
+                        <bean class="org.wr.om.core.rulebasedom.mvel.MvelCondition">
+                            <property name="expression" value=" instance.status == 'New' "/>
+                        </bean>
+                    </property>
+                    <property name="actions">
+                        <list>
+                            <bean class="org.wr.om.core.rulebasedom.mvel.MvelApplyInstanceFieldValue">
+                                <property name="fieldName" value="product"/>
+                                <property name="expression" value=" order.productName "/>
+                            </bean>
+                            <bean class="org.wr.om.core.rulebasedom.mvel.MvelApplyInstanceFieldValue">
+                                <property name="fieldName" value="status"/>
+                                <property name="expression" value=" 'Pending' "/>
+                            </bean>
+                            <bean class="org.wr.om.core.rulebasedom.mvel.MvelApplyInstanceFieldValue">
+                                <property name="fieldName" value="version"/>
+                                <property name="expression" value=" instance.version + 1 "/>
+                            </bean>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>

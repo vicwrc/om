@@ -5,7 +5,7 @@ import org.wr.om.core.PublicCloneable;
 public class TestInstance implements PublicCloneable {
 
     private String product;
-    private String status;
+    private String status = "New";
     private int version = 1;
 
     public String getProduct() {
