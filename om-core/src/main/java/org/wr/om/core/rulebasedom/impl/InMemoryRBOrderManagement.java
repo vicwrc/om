@@ -62,6 +62,7 @@ public class InMemoryRBOrderManagement<O, I extends PublicCloneable> implements 
 
             try{
                 if(rule.execute(order, ruleInstance)) {
+                    LOG.info("rule "+ rule.getName()+" was applied to order "+order);
                     return ruleInstance;
                 }
             } catch (Exception e) {

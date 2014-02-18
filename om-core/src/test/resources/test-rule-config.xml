@@ -37,6 +37,74 @@
                         </list>
                     </property>
                 </bean>
+
+                <!-- modify order transition -->
+                <bean class="org.wr.om.core.rulebasedom.OMRule">
+                    <property name="condition">
+                        <bean class="org.wr.om.core.rulebasedom.mvel.MvelCondition">
+                            <property name="expression" value=" instance.status == 'Pending' &amp;&amp; order.action == 'New'  "/>
+                        </bean>
+                    </property>
+                    <property name="actions">
+                        <list>
+                            <bean class="org.wr.om.core.rulebasedom.mvel.MvelApplyInstanceFieldValue">
+                                <property name="fieldName" value="product"/>
+                                <property name="expression" value=" order.productName "/>
+                            </bean>
+                            <bean class="org.wr.om.core.rulebasedom.mvel.MvelApplyInstanceFieldValue">
+                                <property name="fieldName" value="status"/>
+                                <property name="expression" value=" 'Pending' "/>
+                            </bean>
+                            <bean class="org.wr.om.core.rulebasedom.mvel.MvelApplyInstanceFieldValue">
+                                <property name="fieldName" value="version"/>
+                                <property name="expression" value=" instance.version + 1 "/>
+                            </bean>
+                        </list>
+                    </property>
+                </bean>
+
+                <!-- approve transition -->
+                <bean class="org.wr.om.core.rulebasedom.OMRule">
+                    <property name="condition">
+                        <bean class="org.wr.om.core.rulebasedom.mvel.MvelCondition">
+                            <property name="expression" value=" instance.status == 'Pending' &amp;&amp; order.action == 'Approve'  "/>
+                        </bean>
+                    </property>
+                    <property name="actions">
+                        <list>
+                           <bean class="org.wr.om.core.rulebasedom.mvel.MvelApplyInstanceFieldValue">
+                                <property name="fieldName" value="status"/>
+                                <property name="expression" value=" 'Completed' "/>
+                            </bean>
+                            <bean class="org.wr.om.core.rulebasedom.mvel.MvelApplyInstanceFieldValue">
+                                <property name="fieldName" value="version"/>
+                                <property name="expression" value=" instance.version + 1 "/>
+                            </bean>
+                        </list>
+                    </property>
+                </bean>
+
+                <!-- cancel transition -->
+                <bean class="org.wr.om.core.rulebasedom.OMRule">
+                    <property name="condition">
+                        <bean class="org.wr.om.core.rulebasedom.mvel.MvelCondition">
+                            <property name="expression" value=" instance.status == 'Pending' &amp;&amp; order.action == 'Cancel'  "/>
+                        </bean>
+                    </property>
+                    <property name="actions">
+                        <list>
+                            <bean class="org.wr.om.core.rulebasedom.mvel.MvelApplyInstanceFieldValue">
+                                <property name="fieldName" value="status"/>
+                                <property name="expression" value=" 'Cancelled' "/>
+                            </bean>
+                            <bean class="org.wr.om.core.rulebasedom.mvel.MvelApplyInstanceFieldValue">
+                                <property name="fieldName" value="version"/>
+                                <property name="expression" value=" instance.version + 1 "/>
+                            </bean>
+                        </list>
+                    </property>
+                </bean>
+
             </list>
         </property>
     </bean>

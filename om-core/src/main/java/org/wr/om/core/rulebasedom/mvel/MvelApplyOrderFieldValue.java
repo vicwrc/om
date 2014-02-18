@@ -20,4 +20,12 @@ public class MvelApplyOrderFieldValue<O, I> extends MvelAction<O, I>{
             compiled = MVEL.compileExpression("order." + this.getFieldName() + " = (" + expression + ");");
         }
     }
+
+    @Override
+    public String toString() {
+        return "MvelApplyOrderFieldValue{" +
+                "expression='" + expression + '\'' +
+                "fieldName='" + fieldName + '\'' +
+                '}';
+    }
 }

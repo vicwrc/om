@@ -16,4 +16,10 @@ public class MvelCondition<O,I> extends AbstractMvelUnit<O,I> implements OMCondi
         return (Boolean)MVEL.executeExpression(getCompiled(), vars);
     }
 
+    @Override
+    public String toString() {
+        return "MvelCondition{" +
+                "expression='" + expression + '\'' +
+                '}';
+    }
 }

@@ -15,4 +15,11 @@ public class MvelAction<O,I> extends AbstractMvelUnit<O,I> implements OMAction<O
 
         MVEL.executeExpression(getCompiled(), vars);
     }
+
+    @Override
+    public String toString() {
+        return "MvelAction{" +
+                "expression='" + expression + '\'' +
+                '}';
+    }
 }

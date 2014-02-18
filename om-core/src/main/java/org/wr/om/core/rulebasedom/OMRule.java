@@ -1,9 +1,14 @@
 package org.wr.om.core.rulebasedom;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class OMRule<O, I> implements Serializable {
+
+    private static final Log LOG = LogFactory.getLog(OMRule.class);
 
     private String name;
     private OMCondition condition;
@@ -34,6 +39,7 @@ public class OMRule<O, I> implements Serializable {
     }
 
     public boolean execute(O order, I instance) {
+        LOG.debug("start execute rule : "+this + " for order = "+ order + ", instance = "+instance);
         if(null == order) {
             throw new NullPointerException("Order can not be null!");
         }
@@ -41,11 +47,14 @@ public class OMRule<O, I> implements Serializable {
             throw new NullPointerException("Instance can not be null!");
         }
         boolean canBeExecuted = condition.isApplicable(order, instance);
+        LOG.debug("canBeExecuted : "+canBeExecuted + ", condition = "+condition);
         if( canBeExecuted) {
             for(OMAction action : actions) {
                 action.execute(order, instance);
+                LOG.debug("Action executed: "+action);
             }
         }
+        LOG.debug("end execute rule : "+this);
         return canBeExecuted;
     }
 
