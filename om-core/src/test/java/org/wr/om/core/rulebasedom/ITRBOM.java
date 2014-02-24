@@ -1,6 +1,7 @@
 package org.wr.om.core.rulebasedom;
 
 
+import junit.framework.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,7 +28,11 @@ public class ITRBOM {
         order.setAmount(123);
         order.setPricePerItem(10);
 
-        System.out.println(orderManagement.apply(order, new TestInstance()));
+        TestInstance instance = (TestInstance)orderManagement.apply(order, new TestInstance());
+        System.out.println(instance);
+        Assert.assertEquals("product 123", instance.getProduct());
+        Assert.assertEquals(2, instance.getVersion() );
+        Assert.assertEquals("Pending", instance.getStatus());
     }
 
 
@@ -45,6 +50,30 @@ public class ITRBOM {
         instance = (TestInstance)orderManagement.apply(new ApproveOrder(), instance);
 
         System.out.println(instance);
+        Assert.assertEquals("product 123", instance.getProduct());
+        Assert.assertEquals(3, instance.getVersion() );
+        Assert.assertEquals("Completed", instance.getStatus());
+    }
+
+    @Test
+    public void testNewModifyTransition() {
+        TestOrder order = new TestOrder();
+
+        order.setProductName("product 123");
+        order.setAmount(123);
+        order.setPricePerItem(10);
+
+        TestInstance instance = (TestInstance)orderManagement.apply(order, new TestInstance());
+        System.out.println(instance);
+
+        order.setProductName("New Product");
+
+        instance = (TestInstance)orderManagement.apply(order, instance);
+
+        System.out.println(instance);
+        Assert.assertEquals("New Product", instance.getProduct());
+        Assert.assertEquals(3, instance.getVersion() );
+        Assert.assertEquals("Pending", instance.getStatus());
     }
 
     @Test
@@ -61,6 +90,9 @@ public class ITRBOM {
         instance = (TestInstance)orderManagement.apply(new CancelOrder(), instance);
 
         System.out.println(instance);
+        Assert.assertEquals("product 123", instance.getProduct());
+        Assert.assertEquals(3, instance.getVersion() );
+        Assert.assertEquals("Cancelled", instance.getStatus());
     }
 
 }

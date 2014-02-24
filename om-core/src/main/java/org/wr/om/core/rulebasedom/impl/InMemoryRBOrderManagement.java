@@ -3,6 +3,7 @@ package org.wr.om.core.rulebasedom.impl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.wr.om.core.PublicCloneable;
+import org.wr.om.core.TransitionExecutionException;
 import org.wr.om.core.rulebasedom.OMRule;
 import org.wr.om.core.rulebasedom.RuleBasedOrderManagement;
 
@@ -66,7 +67,7 @@ public class InMemoryRBOrderManagement<O, I extends PublicCloneable> implements 
                     return ruleInstance;
                 }
             } catch (Exception e) {
-                LOG.error(e.getMessage(), e);
+                throw new TransitionExecutionException(e.getMessage(), e);
             }
         }
         return null;
