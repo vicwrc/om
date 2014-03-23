@@ -12,13 +12,13 @@ public abstract class AbstractOrderInstanceStorage<O, I extends PublicCloneable>
 
     public abstract void saveByRoot(O rootOrder, I curInstance);
 
-    protected  abstract I createNewInstanceByOrder(O rootOrder);
+    protected abstract I createNewInstanceByOrder(O rootOrder);
 
     @Override
     public I getInstance(O order) {
         O root = getRoot(order);
-        I instance =  getInstanceByRoot(root);
-        if(null == instance) {
+        I instance = getInstanceByRoot(root);
+        if (null == instance) {
             instance = createNewInstanceByOrder(root);
         }
         return instance;

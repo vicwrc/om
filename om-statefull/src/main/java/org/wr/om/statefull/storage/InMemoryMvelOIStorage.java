@@ -2,6 +2,7 @@ package org.wr.om.statefull.storage;
 
 import org.wr.mvel.CompiledMVEL;
 import org.wr.om.core.PublicCloneable;
+import org.wr.om.statefull.InstanceByOrderCreator;
 import org.wr.om.statefull.ParentOrderNotFoundException;
 import org.wr.om.statefull.model.HierarchicalOrder;
 
@@ -11,14 +12,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryMvelOIStorage<O extends HierarchicalOrder, I extends PublicCloneable> extends AbstractInMemoryOIStorage<O, I>  {
 
-    private String createNewInstanceExpression;
+    private InstanceByOrderCreator<O,I> instanceByOrderCreator;
     private Map<String, O> orderStorage = new ConcurrentHashMap<String, O>();
 
     @Override
     protected I createNewInstanceByOrder(O rootOrder) {
-        Map vars = new HashMap();
-        vars.put("order", rootOrder);
-        return (I)CompiledMVEL.executeExpression(createNewInstanceExpression, vars);
+        return instanceByOrderCreator.create(rootOrder);
     }
 
     @Override
@@ -37,12 +36,12 @@ public class InMemoryMvelOIStorage<O extends HierarchicalOrder, I extends Public
         return parent;
     }
 
-    public String getCreateNewInstanceExpression() {
-        return createNewInstanceExpression;
+    public InstanceByOrderCreator<O, I> getInstanceByOrderCreator() {
+        return instanceByOrderCreator;
     }
 
-    public void setCreateNewInstanceExpression(String createNewInstanceExpression) {
-        this.createNewInstanceExpression = createNewInstanceExpression;
+    public void setInstanceByOrderCreator(InstanceByOrderCreator<O, I> instanceByOrderCreator) {
+        this.instanceByOrderCreator = instanceByOrderCreator;
     }
 
     public void saveOrder(O order) {
