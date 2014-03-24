@@ -38,23 +38,20 @@ public class OMRule<O, I> implements Serializable {
         this.name = name;
     }
 
-    public boolean execute(O order, I instance) {
-        LOG.debug("start execute rule : "+this + " for order = "+ order + ", instance = "+instance);
-        if(null == order) {
+    public boolean execute(final O order, final I instance) {
+        LOG.debug("start execute rule : " + this + " for order = " + order + ", instance = " + instance);
+        if (null == order) {
             throw new NullPointerException("Order can not be null!");
         }
-        if(null == instance) {
+        if (null == instance) {
             throw new NullPointerException("Instance can not be null!");
         }
         boolean canBeExecuted = condition.isApplicable(order, instance);
-        LOG.debug("canBeExecuted : "+canBeExecuted + ", condition = "+condition);
-        if( canBeExecuted) {
-            for(OMAction action : actions) {
-                action.execute(order, instance);
-                LOG.debug("Action executed: "+action);
-            }
+        LOG.debug("canBeExecuted : " + canBeExecuted + ", condition = " + condition);
+        if (canBeExecuted) {
+            actions.forEach(action -> action.execute(order, instance));
         }
-        LOG.debug("end execute rule : "+this);
+        LOG.debug("end execute rule : " + this);
         return canBeExecuted;
     }
 
