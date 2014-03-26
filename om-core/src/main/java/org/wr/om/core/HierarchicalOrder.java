@@ -1,4 +1,4 @@
-package org.wr.om.statefull.model;
+package org.wr.om.core;
 
 public interface HierarchicalOrder {
 

@@ -1,6 +1,8 @@
 package org.wr.om.core.rulebasedom.order;
 
-public class ApproveOrder {
+import org.wr.om.core.HierarchicalOrder;
+
+public class ApproveOrder implements HierarchicalOrder{
 
     private String action = "Approve";
 
@@ -17,5 +19,15 @@ public class ApproveOrder {
         return "ApproveOrder{" +
                 "action='" + action + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getId() {
+        return "2";  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public String getParentId() {
+        return "1";  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

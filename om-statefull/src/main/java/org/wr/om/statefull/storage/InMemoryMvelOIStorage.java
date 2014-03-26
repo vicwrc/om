@@ -1,12 +1,10 @@
 package org.wr.om.statefull.storage;
 
-import org.wr.mvel.CompiledMVEL;
 import org.wr.om.core.PublicCloneable;
 import org.wr.om.statefull.InstanceByOrderCreator;
 import org.wr.om.statefull.ParentOrderNotFoundException;
-import org.wr.om.statefull.model.HierarchicalOrder;
+import org.wr.om.core.HierarchicalOrder;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

@@ -1,6 +1,8 @@
 package org.wr.om.core.rulebasedom;
 
-public class TestOrder {
+import org.wr.om.core.HierarchicalOrder;
+
+public class TestOrder implements HierarchicalOrder{
 
     private String productName;
     private Integer amount;
@@ -47,5 +49,15 @@ public class TestOrder {
                 ", pricePerItem=" + pricePerItem +
                 ", action='" + action + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getId() {
+        return "1";
+    }
+
+    @Override
+    public String getParentId() {
+        return null;
     }
 }

@@ -2,6 +2,7 @@ package org.wr.om.core.rulebasedom.impl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.wr.om.core.HierarchicalOrder;
 import org.wr.om.core.PublicCloneable;
 import org.wr.om.core.TransitionExecutionException;
 import org.wr.om.core.rulebasedom.OMRule;
@@ -12,7 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class InMemoryRBOrderManagement<O, I extends PublicCloneable> implements RuleBasedOrderManagement<O, I> {
+public class InMemoryRBOrderManagement<O extends HierarchicalOrder, I extends PublicCloneable> implements RuleBasedOrderManagement<O, I> {
 
     private static final Log LOG = LogFactory.getLog(InMemoryRBOrderManagement.class);
 
